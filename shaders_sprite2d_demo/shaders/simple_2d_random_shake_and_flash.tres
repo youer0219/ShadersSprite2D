@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://3osytgg2uvn4"]
+
+[ext_resource type="Shader" uid="uid://blrmbxpqt8age" path="res://shaders_sprite2d_demo/shaders/simple_2d_random_shake_and_flash.gdshader" id="1_bgtsa"]
+
+[resource]
+shader = ExtResource("1_bgtsa")
+shader_parameter/hit_effect = 0.17
+shader_parameter/shake_intensity = 10.0
+shader_parameter/flash_speed = 30.0
+shader_parameter/flash_color = Color(0, 0, 0, 1)

@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://cyugwl4nvbtqi"]
+
+[ext_resource type="Script" uid="uid://bax4oc1bhb3h4" path="res://shaders_sprite_2d.gd" id="1_v2l3j"]
+[ext_resource type="Material" uid="uid://3osytgg2uvn4" path="res://shaders_sprite2d_demo/shaders/simple_2d_random_shake_and_flash.tres" id="2_6jjnh"]
+[ext_resource type="Texture2D" uid="uid://bhqfj034grytt" path="res://shaders_sprite2d_demo/image/icon.svg" id="2_ewgqd"]
+[ext_resource type="Material" uid="uid://cd1iqnisp6jyr" path="res://shaders_sprite2d_demo/shaders/melting_screen_like.tres" id="4_r7o4v"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_6jjnh"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6jjnh"]
+viewport_path = NodePath("EffectShow/ShadersSprite2D/@SubViewport@33666")
+
+[node name="ShadersSprite2dDemo" type="Node2D"]
+
+[node name="JustShowWarnning" type="Node2D" parent="."]
+visible = false
+
+[node name="ShadersSprite2D" type="Sprite2D" parent="JustShowWarnning"]
+script = ExtResource("1_v2l3j")
+shaders_dic = Dictionary[StringName, Material]({
+&"1": SubResource("FogMaterial_6jjnh")
+})
+metadata/_custom_type_script = "uid://bax4oc1bhb3h4"
+
+[node name="EffectShow" type="Node2D" parent="."]
+
+[node name="ShadersSprite2D" type="Sprite2D" parent="EffectShow"]
+material = ExtResource("2_6jjnh")
+texture = SubResource("ViewportTexture_6jjnh")
+script = ExtResource("1_v2l3j")
+bottom_texture = ExtResource("2_ewgqd")
+shaders_dic = Dictionary[StringName, Material]({
+&"shader01": ExtResource("2_6jjnh"),
+&"shader02": ExtResource("4_r7o4v")
+})
+metadata/_custom_type_script = "uid://bax4oc1bhb3h4"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)

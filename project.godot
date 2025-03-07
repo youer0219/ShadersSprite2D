@@ -12,4 +12,4 @@ config_version=5
 
 config/name="ShadersSprite2D"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://shaders_sprite2d_demo/image/icon.svg"

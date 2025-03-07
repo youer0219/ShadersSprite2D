@@ -18,8 +18,8 @@ A specialized `Sprite2D` subclass implementing **multi-pass shader processing** 
 # Configure in Inspector
 @export var bottom_texture: Texture2D  # Base texture input
 @export var shaders_dic: Dictionary[StringName, Material] = {
-    "Effect1": preload("material1.tres"),
-    "Effect2": preload("material2.tres")
+	"Effect1": preload("material1.tres"),
+	"Effect2": preload("material2.tres")
 }
 ```  
 **Key Constraints**:  

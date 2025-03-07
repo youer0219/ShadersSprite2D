@@ -46,7 +46,7 @@
 | 特效名称 | 作者 | 来源 | 许可协议 |  
 |---------|------|------|---------|  
 | 熔融屏幕 | Shader Kitten | [GodotShaders](https://godotshaders.com) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |  
-| 随机抖动+闪光 | Rain | [GodotShaders](https://godotshaders.com) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |  
+| 随机抖动+闪光 | Rain | [GodotShaders](https://godotshaders.com) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | 
 
 ### 核心脚本  
 - **许可协议**：MIT  

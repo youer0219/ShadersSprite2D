@@ -50,10 +50,11 @@ ShadersSprite2D (Main Node,Applies Material 01)
 				└── ... (Recursive to final level)
 ```
 
-## ⚠️ Known Issues  
-| Description | Impact | Solution | Frequency |  
-|-------------|--------|----------|-----------|  
-| `ERROR: Path to node is invalid` (Editor) | Cosmetic | Ignore - no runtime effect | Very Low |  
+
+## ⚠️ List of Issues (All Resolved)
+| Problem description | Impact Level | Solution | Frequency of occurrence |
+|----------|----------|----------|----------|
+| 'ERROR: Path to node is invalid' (editor) | Resolved | Negligible - Does not affect runtime | Never |
 
 ## 📜 Credits & Licensing  
 ### Shader Authors  

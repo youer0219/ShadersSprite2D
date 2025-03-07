@@ -119,3 +119,16 @@ func _get_configuration_warnings():
 		warnings.append("No bottom image provided; shaders won't take effect.")
 	
 	return warnings
+
+## Delete the texture before saving, and assign the value again after saving 
+## to avoid the editor error by saving the automatically generated viewport texture to the scene file('Path to node is invalid')
+## The solution comes from:
+## https://forum.godotengine.org/t/how-to-make-variables-for-scripts-running-in-the-editor-not-save-to-the-scene-file-in-godot/104490/2
+## Thanks for the guidance:https://forum.godotengine.org/u/mrcdk/summary
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_EDITOR_PRE_SAVE:
+			texture = null
+		NOTIFICATION_EDITOR_POST_SAVE:
+			if first_sub_viewport != null:
+				texture = first_sub_viewport.get_texture()

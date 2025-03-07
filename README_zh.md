@@ -1,5 +1,7 @@
 # ShadersSprite2D 
-*Godot 4.4 多层级着色器特效节点*  
+*Godot 4.4 多层级着色器特效节点* 
+
+[中文文档](README_zh.md) | [English Documentation](README.md)
 
 ![Godot 4.4+](https://img.shields.io/badge/Godot-4.4%2B-%23478cbf)  
 
@@ -12,16 +14,12 @@
 ## 🛠️ 安装  
 1. 将 `ShadersSprite2D.gd` 添加至项目  
 2. 作为子节点挂载到任意 2D 场景  
+3. 如果你是较低版本，更新按钮和类型化字典无法使用，但其他部分应该并无问题！（需要测试）
 
 ## ⚙️ 配置  
-```gdscript
-# 在检视器面板配置
-@export var bottom_texture: Texture2D  # 基础纹理输入
-@export var shaders_dic: Dictionary[StringName, Material] = {
-	"特效1": preload("material1.tres"),
-	"特效2": preload("material2.tres")
-}
-```  
+
+- 在编辑器中配置 bottom_texture（基础纹理） 和 shaders_dic（shader材质字典） 即可
+
 **关键限制**：  
 ⚠️ 禁止手动设置 `texture`/`material` 属性（由内部自动管理）  
 ⚠️ 材质类型：`ShaderMaterial`（推荐），`CanvasItemMaterial`（未充分测试）  
@@ -30,16 +28,28 @@
   
 * SubViewport + ViewportTexture
 
-采用 **视口嵌套策略**：  
-1. 创建与着色器数量匹配的 SubViewport 链  
-2. 每个视口应用一个着色器材质  
-3. 最终输出为多层级特效叠加结果  
-4. 可通过远程场景树调试工具查看实时结构  
+**视口链构建流程**：
+1. 根据`shaders_dic`长度创建对应数量减一的SubViewport
+2. 每个SubViewport内部创建中心对齐的Sprite2D节点
+3. 逐级配置：
+   - SubViewport的输出作为上一级Sprite2D的输入纹理
+   - 末级直接使用`bottom_texture`作为输入
+4. 每个SubViewport自动匹配基础纹理尺寸（`bottom_texture.get_size()`）
 
-## ⚠️ 已知问题  
-| 问题描述 | 影响范围 | 解决方案 |  
-|---------|---------|---------|  
-| `ERROR: Path to node is invalid`（编辑器报错） | 仅显示问题 | 忽略 - 不影响运行时 |  
+**节点结构示例**：
+```
+ShadersSprite2D (主节点,应用 Material 01)
+└── SubViewport1 (首视口)
+	└── Sprite2D (应用 Material 02)
+		└── SubViewport2
+			└── Sprite2D (应用 Material 03)
+				└── ...（递归至末级）
+```
+
+## ⚠️ 已知问题   
+| 问题描述 | 影响级别 | 解决方案 | 发生频率 |  
+|----------|----------|----------|----------|  
+| `ERROR: Path to node is invalid` (编辑器) | 表面性 | 可忽略 - 不影响运行时 | 极低 |  
 
 ## 📜 致谢与许可协议  
 ### 着色器作者  
@@ -54,7 +64,7 @@
 
 ## 🔄 刷新机制  
 1. 在检视器面板完成配置  
-2. 点击 **Generate** 按钮实现：  
+2. 点击 **Generate** 按钮实现：
    - 重建视口链  
    - 应用更新后的着色器参数  
    - 修复预览异常  

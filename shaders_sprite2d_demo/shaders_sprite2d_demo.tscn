@@ -8,7 +8,7 @@
 [sub_resource type="PlaceholderMaterial" id="PlaceholderMaterial_6jjnh"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_6jjnh"]
-viewport_path = NodePath("EffectShow/ShadersSprite2D/@SubViewport@21736")
+viewport_path = NodePath("EffectShow/ShadersSprite2D/@SubViewport@21740")
 
 [node name="ShadersSprite2dDemo" type="Node2D"]
 

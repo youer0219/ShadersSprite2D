@@ -43,6 +43,20 @@ func set_shader_param_by_name(choose_material_name:StringName,param:StringName, 
 		return null
 	choose_material.set_shader_parameter(param,value)
 
+func add_material(material_name:StringName,new_material:Material):
+	if shaders_dic.has(material_name):
+		push_warning("Try adding duplicate keys to the dictionary")
+		return
+	shaders_dic[material_name] = new_material
+	generate()
+
+func erase_material(material_name:StringName):
+	if not shaders_dic.has(material_name):
+		push_warning("Try removing attributes that aren't in the dictionary!")
+		return
+	shaders_dic.erase(material_name)
+	generate()
+
 ## Retrieves material from dictionary by name
 func get_material_by_name(choose_material_name:StringName)->Material:
 	if not shaders_dic.has(choose_material_name):
@@ -102,6 +116,7 @@ func _get_subviewport()->SubViewport:
 	subviewport.size = bottom_texture.get_size()
 	
 	return subviewport
+
 
 func _get_configuration_warnings():
 	var warnings = []

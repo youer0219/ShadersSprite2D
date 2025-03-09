@@ -23,3 +23,17 @@ func _test_shaders_sprite2d():
 	print("修改shader的属性调整效果")
 	shaders_sprite_2d.set_shader_param_by_name("shader02","movement",0.8)
 	print("预期效果： 图像显示位置明确下移（超过图像边界的不会显示）")
+	print("等待4s")
+	
+	await get_tree().create_timer(4.0).timeout
+	print("删除抖动相关shader")
+	shaders_sprite_2d.erase_material("shader01")
+	print("等待4s")
+	
+	await get_tree().create_timer(4.0).timeout
+	print("添加抖动相关shader")
+	var new_material = load("res://shaders_sprite2d_demo/shaders/simple_2d_random_shake_and_flash.tres")
+	shaders_sprite_2d.add_material("shader03",new_material)
+	
+	await get_tree().create_timer(1.0).timeout
+	print("====   测试结束   ====")

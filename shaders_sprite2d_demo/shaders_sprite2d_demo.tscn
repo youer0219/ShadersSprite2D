@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyugwl4nvbtqi"]
+[gd_scene load_steps=7 format=3 uid="uid://cyugwl4nvbtqi"]
 
+[ext_resource type="Script" uid="uid://bixmtvw7oe0e5" path="res://shaders_sprite2d_demo/shaders_sprite_2d_demo.gd" id="1_r7o4v"]
 [ext_resource type="Script" uid="uid://bax4oc1bhb3h4" path="res://shaders_sprite_2d.gd" id="1_v2l3j"]
 [ext_resource type="Material" uid="uid://3osytgg2uvn4" path="res://shaders_sprite2d_demo/shaders/simple_2d_random_shake_and_flash.tres" id="2_6jjnh"]
 [ext_resource type="Texture2D" uid="uid://bhqfj034grytt" path="res://shaders_sprite2d_demo/image/icon.svg" id="2_ewgqd"]
@@ -8,6 +9,7 @@
 [sub_resource type="PlaceholderMaterial" id="PlaceholderMaterial_6jjnh"]
 
 [node name="ShadersSprite2dDemo" type="Node2D"]
+script = ExtResource("1_r7o4v")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -25,6 +27,7 @@ metadata/_custom_type_script = "uid://bax4oc1bhb3h4"
 [node name="EffectShow" type="Node2D" parent="."]
 
 [node name="ShadersSprite2D" type="Sprite2D" parent="EffectShow"]
+unique_name_in_owner = true
 material = ExtResource("2_6jjnh")
 script = ExtResource("1_v2l3j")
 bottom_texture = ExtResource("2_ewgqd")

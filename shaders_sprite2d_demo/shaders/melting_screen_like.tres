@@ -5,4 +5,4 @@
 [resource]
 shader = ExtResource("1_foecl")
 shader_parameter/subdivisions = 10
-shader_parameter/movement = 0.46
+shader_parameter/movement = 0.4

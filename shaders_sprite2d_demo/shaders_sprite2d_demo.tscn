@@ -30,7 +30,7 @@ metadata/_custom_type_script = "uid://bax4oc1bhb3h4"
 unique_name_in_owner = true
 material = ExtResource("2_6jjnh")
 script = ExtResource("1_v2l3j")
-bottom_texture = ExtResource("2_ewgqd")
+shaders_texture = ExtResource("2_ewgqd")
 shaders_dic = Dictionary[StringName, Material]({
 &"shader01": ExtResource("2_6jjnh"),
 &"shader02": ExtResource("4_r7o4v")

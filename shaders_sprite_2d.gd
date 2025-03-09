@@ -3,7 +3,7 @@ class_name ShadersSprite2D
 extends Sprite2D
 ## Multi-pass shader processor for Sprite2D with real-time editor preview.
 ## [br][br]Usage:
-## - Set base texture in 'bottom_texture'
+## - Set base texture in 'shaders_texture'
 ## - Add shader materials to 'shaders_dic' (key: shader name, value: material)
 ## - Click generate button to refresh effects
 ## [br][br]Warnings:
@@ -12,9 +12,9 @@ extends Sprite2D
 ## - Editor preview may glitch with invalid configurations
 
 @export_tool_button("generate") var genarete_func = generate
-@export var bottom_texture:Texture2D:
+@export var shaders_texture:Texture2D:
 	set(value):
-		bottom_texture = value
+		shaders_texture = value
 		generate()
 		update_configuration_warnings()
 @export var shaders_dic:Dictionary[StringName,Material]:
@@ -68,14 +68,14 @@ func get_material_by_name(choose_material_name:StringName)->Material:
 func generate():
 	clear()
 	
-	if bottom_texture == null:
+	if shaders_texture == null:
 		return
 	
 	var shaders_dic_size := shaders_dic.size()
 	
 	## no shader and return
 	if shaders_dic_size == 0:
-		texture = bottom_texture
+		texture = shaders_texture
 		return
 	
 	var last_sprite_2d:Sprite2D = self
@@ -88,7 +88,7 @@ func generate():
 		last_sprite_2d.material = shaders_array[index]
 		
 		if shaders_dic_size - index == 1:
-			last_sprite_2d.texture = bottom_texture
+			last_sprite_2d.texture = shaders_texture
 		else:
 			## add subviewport
 			var new_subviewport:SubViewport = _get_subviewport()
@@ -103,7 +103,7 @@ func generate():
 			
 			## add new sprite2d
 			var new_sprite_2d:Sprite2D = Sprite2D.new()
-			new_sprite_2d.position = bottom_texture.get_size() / 2.0
+			new_sprite_2d.position = shaders_texture.get_size() / 2.0
 			new_subviewport.add_child(new_sprite_2d)
 			last_sprite_2d = new_sprite_2d
 
@@ -113,7 +113,7 @@ func _get_subviewport()->SubViewport:
 	var subviewport = SubViewport.new()
 	subviewport.disable_3d = true
 	subviewport.transparent_bg = true
-	subviewport.size = bottom_texture.get_size()
+	subviewport.size = shaders_texture.get_size()
 	
 	return subviewport
 
@@ -130,7 +130,7 @@ func _get_configuration_warnings():
 			warnings.append("Only ShaderMaterial/CanvasItemMaterial supported.")
 			break
 	
-	if bottom_texture == null:
+	if shaders_texture == null:
 		warnings.append("No bottom image provided; shaders won't take effect.")
 	
 	return warnings

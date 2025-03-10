@@ -1,62 +1,63 @@
 # ShadersSprite2D  
-*Godot 4.4 Multi-Layer Shader Effect Node*  
+*Multi-layer Shader Effects Node for Godot 4.4*  
 
 [中文文档](README_zh.md) | [English Documentation](README.md)  
 
 ![Godot 4.4+](https://img.shields.io/badge/Godot-4.4%2B-%23478cbf)  
 
 ## 🔍 Overview  
-A specialized `Sprite2D` subclass for **multi-pass shader processing** via chained `SubViewport` nodes. Features:  
+A specialized Sprite2D subclass for **multi-pass shader processing** implemented via chained `SubViewport` nodes. Key features:  
 - Real-time editor preview (supports auto-refresh)  
-  - Allows manual refresh if visual anomalies occur  
-- Dynamic parameter adjustment via scripts  
+  - Allows manual refresh when image anomalies occur  
+- Provides methods to modify specified shader properties in real-time  
 
 ## 🛠️ Installation  
 1. Add `ShadersSprite2D.gd` to your project  
-2. Use it like a regular `Sprite2D`, but **DO NOT** manually set the `texture`/`material` properties  
-3. For Godot versions below 4.4:  
-   - The "Update" button and typed dictionaries may not work (modify/remove them if needed)  
+2. Use it like a regular Sprite2D. **Note**: Do not manually set the `texture`/`material` properties  
+3. For Godot versions below 4.4: The "Generate" button and typed dictionaries may not work. Modify or remove them if needed (untested).  
 
 ## ⚙️ Configuration  
-- Set `bottom_texture` (base texture) and `shaders_dic` (shader material dictionary) in the editor  
+- Configure `bottom_texture` (base texture) and `shaders_dic` (shader material dictionary) in the editor  
+- Adjust `size_expand` to expand viewport size if shaders exceed the original texture bounds  
+- Modify SubViewport properties as needed for visual effects  
+  - To customize, add `@export` properties and modify `_get_subviewport()`  
 
-**Key Restrictions**:  
-⚠️ **DO NOT** manually modify `texture`/`material` properties (managed internally)  
+**Key Constraints**:  
+⚠️ Do NOT manually set `texture`/`material` properties (managed internally)  
 ⚠️ Sprite2D material types: `ShaderMaterial` (recommended), `CanvasItemMaterial` (untested)  
 
 ## 🔬 Technical Implementation  
-
 * SubViewport + ViewportTexture  
 
 **Viewport Chain Construction**:  
-1. Creates `SubViewport` nodes based on the length of `shaders_dic` (minus one)  
-2. Each `SubViewport` contains a centered `Sprite2D` node  
+1. Create SubViewports based on `shaders_dic` length (minus one)  
+2. Each SubViewport contains a centered Sprite2D node  
 3. Hierarchical setup:  
-   - Each `SubViewport`'s output becomes the input texture for the previous-level `Sprite2D`  
-   - The final-level `Sprite2D` uses `bottom_texture` directly  
-4. All `SubViewport` nodes auto-match the size of `bottom_texture`  
+   - SubViewport output feeds into the previous Sprite2D's texture  
+   - The last Sprite2D uses `bottom_texture` directly  
+4. SubViewports auto-match `bottom_texture` size, with optional expansion  
 
-**Node Structure Example**:  
+**Example Node Structure**:  
 ```
-ShadersSprite2D (Main node, applies Material 01)  
-└── SubViewport1 (First Viewport)  
-	└── Sprite2D (Applies Material 02)  
+ShadersSprite2D (main node, applies Material 01)  
+└── SubViewport1 (first viewport)  
+	└── Sprite2D (applies Material 02)  
 		└── SubViewport2  
-			└── Sprite2D (Applies Material 03)  
-				└── ... (Recursive until last level)  
-```
+			└── Sprite2D (applies Material 03)  
+				└── ... (recursive to last layer)  
+```  
 
 ## ⚠️ Known Issues (Resolved)  
 | Description | Severity | Solution | Frequency |  
 |-------------|----------|----------|-----------|  
-| `ERROR: Path to node is invalid` (Editor) | Resolved | Safe to ignore - no runtime impact | Never |  
+| `ERROR: Path to node is invalid` (editor) | Resolved | Safe to ignore - no runtime impact | Never |  
 
 - Special thanks: https://forum.godotengine.org/u/mrcdk/summary  
 
 ## 📜 Credits & Licenses  
 ### Shader Authors  
-| Effect Name | Author | Source | License |  
-|-------------|--------|--------|---------|  
+| Effect | Author | Source | License |  
+|--------|--------|--------|---------|  
 | Melting Screen | Shader Kitten | [GodotShaders](https://godotshaders.com/shader/doom-like-melting-screen/) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |  
 | Random Shake + Flash | Rain | [GodotShaders](https://godotshaders.com/shader/simple-2d-random-shake-%ef%bc%86-flash/) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |  
 
@@ -65,8 +66,9 @@ ShadersSprite2D (Main node, applies Material 01)
 - **Compatibility**: Godot 4.4+  
 
 ## 🔄 Refresh Mechanism  
-1. Complete configuration in the inspector  
+1. Configure properties in the inspector  
 2. Click the **Generate** button to:  
    - Rebuild the viewport chain  
    - Apply updated shader parameters  
-   - Fix preview issues
+   - Fix preview anomalies  
+3. Use when visual glitches occur. If issues persist, reload the project.

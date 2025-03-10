@@ -9,7 +9,8 @@
 通过链式 `SubViewport` 节点实现的 **多通道着色器处理** 专用 Sprite2D 子类。功能特性：  
 - 实时编辑器预览（支持自动刷新）
 	- 支持在图像显示异常时手动刷新
-- 脚本动态参数调整
+- 提供实时修改指定shader属性的方法
+
 
 ## 🛠️ 安装
 1. 将 `ShadersSprite2D.gd` 添加至项目  
@@ -18,7 +19,10 @@
 
 ## ⚙️ 配置
 
-- 在编辑器中配置 bottom_texture（基础纹理） 和 shaders_dic（shader材质字典） 即可
+- 在编辑器中配置 bottom_texture（基础纹理） 和 shaders_dic（shader材质字典） 
+- 如果Shader的效果需要超出原有图像大小，则应该调整 size_expand 属性来扩大视口大小
+- 按需配置subviewport的属性以实现预期的视觉效果
+	- 如果需要自己定义，可以添加 @export 属性并只需要修改 _get_subviewport 方法即可
 
 **关键限制**：  
 ⚠️ 不应该手动设置 `texture`/`material` 属性（由内部自动管理）  
@@ -34,7 +38,7 @@
 3. 逐级配置：
    - SubViewport的输出作为上一级Sprite2D的输入纹理
    - 末级Sprite2D直接使用`bottom_texture`作为输入
-4. 每个SubViewport自动匹配基础纹理尺寸（`bottom_texture.get_size()`）
+4. 每个SubViewport自动匹配基础纹理尺寸（`bottom_texture.get_size()`），同时按需设置窗口扩大比例
 
 **节点结构示例**：
 ```
@@ -69,4 +73,5 @@ ShadersSprite2D (主节点,应用 Material 01)
 2. 点击 **Generate** 按钮实现：
    - 重建视口链  
    - 应用更新后的着色器参数  
-   - 修复预览异常  
+   - 修复预览异常
+3. 在图像显示异常时常用。如果仍然无法解决问题，请尝试重新加载项目。

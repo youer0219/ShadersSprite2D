@@ -11,6 +11,9 @@ extends Sprite2D
 ## - Only supports CanvasItemMaterial/ShaderMaterial types
 ## - Editor preview may glitch with invalid configurations
 
+## This property makes the subviewport background transparent. This property should not be modified at all.
+const TRANSPARENT_BG :bool = true
+
 ## if texture show wrong,press it to refresh
 @export_tool_button("generate") var genarete_func = generate
 
@@ -25,8 +28,14 @@ extends Sprite2D
 		generate()
 		update_configuration_warnings()
 
+@export_group("Subviewport Setting")
 ## Expands the size to handle special shaders that expand the display range of the image
 @export var size_expand:Vector2 = Vector2(1,1)
+@export var snap_2d_transforms_to_pixel:bool = false
+@export var snap_2d_vertices_to_pixel:bool = false
+@export var canvas_item_default_texture_filter:Viewport.DefaultCanvasItemTextureFilter = Viewport.DefaultCanvasItemTextureFilter.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR 
+## Modifications are not recommended, as 3D rendering is generally not required
+@export var disable_3d:bool = true
 
 var first_sub_viewport:SubViewport # Root viewport for effect chain
 
@@ -113,12 +122,15 @@ func generate():
 			last_sprite_2d = new_sprite_2d
 
 
-## Creates configured SubViewport matching texture size
+## Creates configured SubViewport
 func _get_subviewport()->SubViewport:
 	var subviewport = SubViewport.new()
-	subviewport.disable_3d = true
-	subviewport.transparent_bg = true
+	subviewport.disable_3d = disable_3d
+	subviewport.transparent_bg = TRANSPARENT_BG
 	subviewport.size = shaders_texture.get_size() * size_expand
+	subviewport.snap_2d_transforms_to_pixel = snap_2d_transforms_to_pixel
+	subviewport.snap_2d_vertices_to_pixel = snap_2d_vertices_to_pixel
+	subviewport.canvas_item_default_texture_filter = canvas_item_default_texture_filter
 	
 	return subviewport
 
@@ -152,16 +164,3 @@ func _notification(what: int) -> void:
 		NOTIFICATION_EDITOR_POST_SAVE:
 			if first_sub_viewport != null:
 				texture = first_sub_viewport.get_texture()
-
-### cover set texture method
-#func _set(property: StringName, value: Variant) -> bool:
-	#if property == &"texture": 
-		#return _set_texture(value)
-	#return false
-#
-### clear shaders texture when tetxure is null
-#func _set_texture(value: Variant) -> bool:
-	#set_texture(value)
-	#if value == null:
-		#shaders_texture = null
-	#return true

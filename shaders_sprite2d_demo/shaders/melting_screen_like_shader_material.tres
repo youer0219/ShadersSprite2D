@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c7rtug8jqqnc2"]
+
+[ext_resource type="Shader" uid="uid://b0aguqqcn81ej" path="res://shaders_sprite2d_demo/shaders/melting_screen_like.gdshader" id="1_mtlpg"]
+
+[resource]
+shader = ExtResource("1_mtlpg")
+shader_parameter/subdivisions = 10
+shader_parameter/movement = 0.3

@@ -11,7 +11,9 @@ extends Sprite2D
 ## - Only supports CanvasItemMaterial/ShaderMaterial types
 ## - Editor preview may glitch with invalid configurations
 
+## if texture show wrong,press it to refresh
 @export_tool_button("generate") var genarete_func = generate
+
 @export var shaders_texture:Texture2D:
 	set(value):
 		shaders_texture = value
@@ -22,6 +24,9 @@ extends Sprite2D
 		shaders_dic = value
 		generate()
 		update_configuration_warnings()
+
+## Expands the size to handle special shaders that expand the display range of the image
+@export var size_expand:Vector2 = Vector2(1,1)
 
 var first_sub_viewport:SubViewport # Root viewport for effect chain
 
@@ -103,7 +108,7 @@ func generate():
 			
 			## add new sprite2d
 			var new_sprite_2d:Sprite2D = Sprite2D.new()
-			new_sprite_2d.position = shaders_texture.get_size() / 2.0
+			new_sprite_2d.position = new_subviewport.size / 2.0
 			new_subviewport.add_child(new_sprite_2d)
 			last_sprite_2d = new_sprite_2d
 
@@ -113,7 +118,7 @@ func _get_subviewport()->SubViewport:
 	var subviewport = SubViewport.new()
 	subviewport.disable_3d = true
 	subviewport.transparent_bg = true
-	subviewport.size = shaders_texture.get_size()
+	subviewport.size = shaders_texture.get_size() * size_expand
 	
 	return subviewport
 
@@ -147,3 +152,16 @@ func _notification(what: int) -> void:
 		NOTIFICATION_EDITOR_POST_SAVE:
 			if first_sub_viewport != null:
 				texture = first_sub_viewport.get_texture()
+
+### cover set texture method
+#func _set(property: StringName, value: Variant) -> bool:
+	#if property == &"texture": 
+		#return _set_texture(value)
+	#return false
+#
+### clear shaders texture when tetxure is null
+#func _set_texture(value: Variant) -> bool:
+	#set_texture(value)
+	#if value == null:
+		#shaders_texture = null
+	#return true

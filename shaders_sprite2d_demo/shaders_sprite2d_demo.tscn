@@ -1,18 +1,32 @@
-[gd_scene load_steps=7 format=3 uid="uid://cyugwl4nvbtqi"]
+[gd_scene load_steps=10 format=3 uid="uid://cyugwl4nvbtqi"]
 
 [ext_resource type="Script" uid="uid://bixmtvw7oe0e5" path="res://shaders_sprite2d_demo/shaders_sprite_2d_demo.gd" id="1_r7o4v"]
 [ext_resource type="Script" uid="uid://bax4oc1bhb3h4" path="res://shaders_sprite_2d.gd" id="1_v2l3j"]
 [ext_resource type="Material" uid="uid://3osytgg2uvn4" path="res://shaders_sprite2d_demo/shaders/simple_2d_random_shake_and_flash.tres" id="2_6jjnh"]
 [ext_resource type="Texture2D" uid="uid://bhqfj034grytt" path="res://shaders_sprite2d_demo/image/icon.svg" id="2_ewgqd"]
-[ext_resource type="Material" uid="uid://cd1iqnisp6jyr" path="res://shaders_sprite2d_demo/shaders/melting_screen_like.tres" id="4_r7o4v"]
+[ext_resource type="Shader" uid="uid://bcusban752j8y" path="res://shaders_sprite2d_demo/shaders/gray_scale.gdshader" id="6_5g5eg"]
+[ext_resource type="Shader" uid="uid://dq8c24s725hk2" path="res://shaders_sprite2d_demo/shaders/outline_effect.gdshader" id="6_5wbyl"]
 
 [sub_resource type="PlaceholderMaterial" id="PlaceholderMaterial_6jjnh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mnmuq"]
+shader = ExtResource("6_5g5eg")
+shader_parameter/gray_scale = 0.0
+shader_parameter/texture_alpha = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5g5eg"]
+shader = ExtResource("6_5wbyl")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 10.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="ShadersSprite2dDemo" type="Node2D"]
 script = ExtResource("1_r7o4v")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
 
 [node name="JustShowWarnning" type="Node2D" parent="."]
 visible = false
@@ -33,6 +47,8 @@ script = ExtResource("1_v2l3j")
 shaders_texture = ExtResource("2_ewgqd")
 shaders_dic = Dictionary[StringName, Material]({
 &"shader01": ExtResource("2_6jjnh"),
-&"shader02": ExtResource("4_r7o4v")
+&"shader02": SubResource("ShaderMaterial_mnmuq"),
+&"shader03": SubResource("ShaderMaterial_5g5eg")
 })
+size_expand = Vector2(1.2, 1.2)
 metadata/_custom_type_script = "uid://bax4oc1bhb3h4"

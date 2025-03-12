@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bixmtvw7oe0e5" path="res://shaders_sprite2d_demo/shaders_sprite_2d_demo.gd" id="1_r7o4v"]
 [ext_resource type="Script" uid="uid://bax4oc1bhb3h4" path="res://shaders_sprite_2d.gd" id="1_v2l3j"]
 [ext_resource type="Material" uid="uid://3osytgg2uvn4" path="res://shaders_sprite2d_demo/shaders/simple_2d_random_shake_and_flash.tres" id="2_6jjnh"]
-[ext_resource type="Texture2D" uid="uid://bhqfj034grytt" path="res://shaders_sprite2d_demo/image/icon.svg" id="2_ewgqd"]
+[ext_resource type="Texture2D" uid="uid://bhqfj034grytt" path="res://image/icon.svg" id="2_ewgqd"]
 [ext_resource type="Shader" uid="uid://bcusban752j8y" path="res://shaders_sprite2d_demo/shaders/gray_scale.gdshader" id="6_5g5eg"]
 [ext_resource type="Shader" uid="uid://dq8c24s725hk2" path="res://shaders_sprite2d_demo/shaders/outline_effect.gdshader" id="6_5wbyl"]
 

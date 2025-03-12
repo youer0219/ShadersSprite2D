@@ -17,7 +17,7 @@ A specialized Sprite2D subclass for **multi-pass shader processing** implemented
 3. For Godot versions below 4.4: The "Generate" button and typed dictionaries may not work. Modify or remove them if needed (untested).  
 
 ## ⚙️ Configuration  
-- Configure `bottom_texture` (base texture) and `shaders_dic` (shader material dictionary) in the editor  
+- Configure `shaders_texture` (base texture) and `shaders_dic` (shader material dictionary) in the editor  
 - Adjust `size_expand` to expand viewport size if shaders exceed the original texture bounds  
 - Modify SubViewport properties as needed for visual effects  
   - To customize, add `@export` properties and modify `_get_subviewport()`  
@@ -34,8 +34,9 @@ A specialized Sprite2D subclass for **multi-pass shader processing** implemented
 2. Each SubViewport contains a centered Sprite2D node  
 3. Hierarchical setup:  
    - SubViewport output feeds into the previous Sprite2D's texture  
-   - The last Sprite2D uses `bottom_texture` directly  
-4. SubViewports auto-match `bottom_texture` size, with optional expansion  
+   - The last Sprite2D uses `shaders_texture` directly  
+4. SubViewports auto-match `shaders_texture` size, with optional expansion  
+5. Recommended reading: [SubViewport class reference](https://docs.godotengine.org/en/stable/classes/class_subviewport.html)
 
 **Example Node Structure**:  
 ```
@@ -65,10 +66,8 @@ ShadersSprite2D (main node, applies Material 01)
 - **License**: MIT  
 - **Compatibility**: Godot 4.4+  
 
-## 🔄 Refresh Mechanism  
-1. Configure properties in the inspector  
-2. Click the **Generate** button to:  
-   - Rebuild the viewport chain  
-   - Apply updated shader parameters  
-   - Fix preview anomalies  
-3. Use when visual glitches occur. If issues persist, reload the project.
+## 🔄 Other Implementation Methods
+
+- Can be implemented using the `CanvasGroup` node, but requires the ability to modify shaders  
+	- Reference the shader implementation at [canvas_group_shader.gdshader](other_implementation_methods/canvas_group/canvas_group_shader.gdshader)
+	- Recommended reading: [CanvasGroup class reference](https://docs.godotengine.org/en/stable/classes/class_canvasgroup.html)

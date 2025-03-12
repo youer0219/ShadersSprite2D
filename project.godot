@@ -14,4 +14,4 @@ config/name="ShadersSprite2D"
 config/tags=PackedStringArray("组件")
 run/main_scene="uid://cyugwl4nvbtqi"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://shaders_sprite2d_demo/image/icon.svg"
+config/icon="res://image/icon.svg"

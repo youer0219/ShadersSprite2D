@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://k047qqrnvywm"]
+
+[ext_resource type="Shader" uid="uid://bwrvso6j7ovs1" path="res://other_implementation_methods/canvas_group/canvas_group_shader.gdshader" id="1_6batd"]
+[ext_resource type="Texture2D" uid="uid://bhqfj034grytt" path="res://image/icon.svg" id="1_6t8uj"]
+[ext_resource type="Texture2D" uid="uid://4xfcve5frhs1" path="res://image/rgb_low_entropy_image_512x512.png" id="2_6batd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7fk1"]
+shader = ExtResource("1_6batd")
+shader_parameter/hit_effect = 0.253
+shader_parameter/shake_intensity = 10.0
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.134
+shader_parameter/base_modulate = Color(1, 0, 1, 1)
+
+[node name="TestCanvasGroupShader" type="CanvasGroup"]
+material = SubResource("ShaderMaterial_r7fk1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(140, 25)
+texture = ExtResource("1_6t8uj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-258, -10)
+texture = ExtResource("2_6batd")
+
+[node name="Camera2D" type="Camera2D" parent="."]

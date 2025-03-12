@@ -21,7 +21,7 @@ func _test_shaders_sprite2d():
 	print("Test0%s" % str(test_num))
 	test_num += 1
 	print("Change texture")  # 修改图像
-	var new_texture = load("res://shaders_sprite2d_demo/image/rgb_low_entropy_image_512x512.png")
+	var new_texture = load("res://image/rgb_low_entropy_image_512x512.png")
 	shaders_sprite_2d.shaders_texture = new_texture
 	print("")
 	
